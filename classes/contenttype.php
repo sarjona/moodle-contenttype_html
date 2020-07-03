@@ -53,9 +53,8 @@ class contenttype extends \core_contentbank\contenttype {
         $event = contentbank_content_viewed::create_from_record($content->get_content());
         $event->trigger();
 
-        $html = '';
-
         // EXERCISE 1 step 3: display the HTML stored in the content configdata.
+        $html = format_text($content->get_configdata());
 
         return $html;
     }
@@ -129,9 +128,14 @@ class contenttype extends \core_contentbank\contenttype {
      */
     public function get_contenttype_types(): array {
         global $OUTPUT;
+        $basictype = new stdClass();
+        $basictype->typename = get_string('pluginname', 'contenttype_html');
+        $basictype->typeeditorparams = 'template=none';
+        $basictype->typeicon = $OUTPUT->image_url('f/html-64', 'moodle')->out(false);
         $types = [
             // EXERCISE 1 step 1: get the html content types available. Add a new option to store
             // HTML content into the content bank.
+            $basictype,
         ];
 
         return $types;
