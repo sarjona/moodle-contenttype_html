@@ -44,4 +44,18 @@ use stored_file;
  */
 class content extends \core_contentbank\content {
 
+    /**
+     * Import a file as a valid content.
+     *
+     * @param stored_file $file File to store in the content file area.
+     * @return stored_file|null the stored content file or null if the file is discarted.
+     */
+    public function import_file(stored_file $file): ?stored_file {
+        $fullcontent = $file->get_content();
+        $this->set_configdata($fullcontent);
+        $this->update_content();
+
+        return parent::import_file($file);
+    }
+
 }
