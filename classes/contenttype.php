@@ -128,14 +128,27 @@ class contenttype extends \core_contentbank\contenttype {
      */
     public function get_contenttype_types(): array {
         global $OUTPUT;
+
         $basictype = new stdClass();
         $basictype->typename = get_string('pluginname', 'contenttype_html');
-        $basictype->typeeditorparams = 'template=none';
+        $basictype->typeeditorparams = 'template=';
         $basictype->typeicon = $OUTPUT->image_url('f/html-64', 'moodle')->out(false);
+
+        $templateseparator = new stdClass();
+        $templateseparator->typename = get_string('templates', 'contenttype_html');
+        $templateseparator->typeicon = $OUTPUT->image_url('f/html-64', 'moodle')->out(false);
+
+        $templatetype = new stdClass();
+        $templatetype->typename = get_string('template1_name', 'contenttype_html');
+        $templatetype->typeeditorparams = 'template=syllabus';
+        $templatetype->typeicon = $OUTPUT->image_url('f/text-64', 'moodle')->out(false);
+
         $types = [
             // EXERCISE 1 step 1: get the html content types available. Add a new option to store
             // HTML content into the content bank.
             $basictype,
+            $templateseparator,
+            $templatetype,
         ];
 
         return $types;

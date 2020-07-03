@@ -67,6 +67,16 @@ class editor extends edit_content {
             $content = new content($record);
             $fullcontent = $content->get_configdata();
             $name = $content->get_name();
+        } else {
+            $template = optional_param('template', null, PARAM_TEXT);
+            if ($template) {
+                try {
+                    $fullcontent = $OUTPUT->render_from_template("contenttype_html/{$template}", []);
+                } catch (moodle_exception $e) {
+                    $notice = get_string('cannotloadtemplate', 'contenttype_html', $template);
+                    $mform->addElement('static', null, '', $OUTPUT->notification($notice));
+                }
+            }
         }
 
         // Content name.
